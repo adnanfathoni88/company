@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Suitmedia</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-title">Company</div>
+      <div class="header-button">
+        <div class="dropdown">
+          <button class="dropdown-about">ABOUT</button>
+          <div class="dropdown-content">
+            <a href="#">HISTORY</a>
+            <a href="#">VISION MISSION</a>
+          </div>
+        </div>
+        <a href="#">OUR WORK</a>
+        <a href="#">OUR TEAM</a>
+        <a href="#">CONTACT</a>
+      </div>
+    </header>
+    <main>
+      <div class="hero">
+        <div class="slideshow-container">
+          <div class="slide active-slide">
+            <img src="./assets/bg.jpg" alt="#" />
+            <h2>
+              THIS IS A PLACE WHERE TECHNOLOGY & <br />
+              CREATIVITY FUSED INTO DIGITAL CHEMISTRY
+            </h2>
+          </div>
+          <div class="slide next-slide">
+            <img src="./assets/about-bg.jpg" alt="#" />
+            <h2>
+              WE DON'T HAVE THE BEST BUT WE HAVE THE <br />
+              GREATEST TEAM
+            </h2>
+          </div>
+          <div class="halaman">
+            <a class="prev" onclick="changeSlide(-1)">&lt;</a>
+            <a class="next" onclick="changeSlide(1)">&gt;</a>
+          </div>
+          <div class="dot-container">
+            <span class="dot" onclick="changeSlide(0)"></span>
+            <span class="dot" onclick="changeSlide(1)"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="value">
+        <div class="value">
+          <h2>OUR VALUES</h2>
+          <div class="card">
+            <div class="card-lampu">
+              <img src="./assets/lightbulb-o.png" alt="#" width="20px" />
+              <h4>INNOVATIVE</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                neque molestias dolores odio amet numquam dolor,
+              </p>
+              <div class="segitiga-lampu"></div>
+            </div>
+            <div class="card-bank">
+              <img src="./assets/bank.png" alt="#" width="30px" />
+              <h4>LOYALTY</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                neque molestias dolores odio amet numquam dolor
+              </p>
+              <div class="segitiga-bank"></div>
+            </div>
+
+            <div class="card-timbangan">
+              <img src="./assets/balance-scale.png" alt="#" width="30px" />
+              <h4>RESPECT</h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+                neque molestias dolores odio amet numquam dolor
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact">
+        <h2>CONTACT US</h2>
+        <div class="input-group">
+          <form action="#" method="post" id="myForm">
+            <div class="field-name">
+              <label for="name">name</label><br />
+              <input class="input" type="text" name="name" id="name" />
+              <span class="error" id="nameError"></span>
+            </div>
+            <div class="field-email">
+              <label for="email">email</label><br />
+              <input class="input" type="email" name="email" id="email" />
+              <span class="error" id="emailError"></span>
+            </div>
+            <div class="field-message">
+              <label for="message">message</label><br />
+              <textarea
+                class="input"
+                type="text"
+                name="message"
+                id="message"
+              ></textarea>
+              <span class="error" id="messageError"></span>
+            </div>
+            <button class="btn" type="submit">SUBMIT</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Copyright @2023. PT Company</p>
+      <div class="footer-logo">
+        <img src="./assets/facebook-official.png" alt="#" width="20px" />
+        <img src="./assets/twitter.png" alt="#" width="20px" />
+      </div>
+    </footer>
+    <script>
+      let slideIndex = 0;
+      const slides = document.getElementsByClassName("slide");
+      const dots = document.getElementsByClassName("dot");
+
+      function showSlides() {
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].classList.remove(
+            "active-slide",
+            "next-slide",
+            "prev-slide"
+          );
+          dots[i].classList.remove("active");
+        }
+
+        slides[slideIndex].classList.add("active-slide");
+        slides[(slideIndex + 1) % slides.length].classList.add("next-slide");
+        slides[(slideIndex - 1 + slides.length) % slides.length].classList.add(
+          "prev-slide"
+        );
+        dots[slideIndex].classList.add("active");
+      }
+
+      function changeSlide(n) {
+        slideIndex = (slideIndex + n + slides.length) % slides.length;
+        showSlides();
+      }
+
+      showSlides();
+    </script>
+    <script>
+      const form = document.getElementById("myForm");
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const message = document.getElementById("message");
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const messageError = document.getElementById("messageError");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const nameValue = name.value;
+        const emailValue = email.value;
+        const messageValue = message.value;
+
+        nameError.textContent = "";
+        emailError.textContent = "";
+        messageError.textContent = "";
+
+        if (nameValue === "") {
+          nameError.textContent = "Name cannot be empty";
+          return;
+        }
+
+        if (emailValue === "") {
+          emailError.textContent = "Email cannot be empty";
+          return;
+        } else if (!emailValue.includes("@")) {
+          emailError.textContent = "Email is not valid";
+          return;
+        }
+
+        if (messageValue === "") {
+          messageError.textContent = "Message cannot be empty";
+          return;
+        }
+        form.submit();
+      });
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    </script>
+  </body>
+</html>
